@@ -1,11 +1,36 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Controller, Get, Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
+import { ConfigModule } from '@nestjs/config';
+
+@Controller('')
+class DeployMessageController {
+  @Get()
+  deployMsg() {
+    return {
+      Project: 'API Plataforma Carlos Ferreira Team',
+      status: 'Successfully Deployed!',
+      dateChecked: new Date(),
+    };
+  }
+}
 
 @Module({
-  imports: [UsersModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      entities: [User],
+      autoLoadEntities: true,
+      synchronize: process.env.NODE_ENV === 'development',
+    }),
+    UsersModule,
+  ],
+  controllers: [DeployMessageController],
 })
 export class AppModule {}
