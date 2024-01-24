@@ -50,8 +50,15 @@ export class UserRepository implements UserRepositoryInterface {
     }
   }
 
-  async findOne(id: string): Promise<UserDomain> {
+  async findById(id: string): Promise<UserDomain> {
     const user = await this.userRepository.findOneBy({id})
+    if(!user) throw new NotFoundException('Usuário não encontrado')
+    
+    return UserMapper.EntityToDomain(user)
+  }
+
+  async findByEmail(email: string): Promise<UserDomain> {
+    const user = await this.userRepository.findOneBy({email})
     if(!user) throw new NotFoundException('Usuário não encontrado')
     
     return UserMapper.EntityToDomain(user)

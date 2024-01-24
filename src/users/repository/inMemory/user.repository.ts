@@ -17,7 +17,12 @@ export class UserRepository implements UserRepositoryInterface {
     return
   }
 
-  async findOne(id: string): Promise<UserDomain> {
+  async findById(id: string): Promise<UserDomain> {
+    // METODO PARA BUSCAR USUARIO NO DB
+    return
+  }
+
+  async findByEmail(id: string): Promise<UserDomain> {
     // METODO PARA BUSCAR USUARIO NO DB
     return
   }

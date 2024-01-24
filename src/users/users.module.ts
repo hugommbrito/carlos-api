@@ -1,15 +1,27 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
-import { UserRepository } from './repository/typeorm/user.repository';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { UserRepository } from './repository/typeorm/user.repository';
+import { LoginController } from './usecase/auth/commands/login/login.controller';
+import { LoginUseCase } from './usecase/auth/commands/login/login.usecase';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
 
-const userUseCases = []
-const userControllers = []
+const userUseCases = [
+  LoginUseCase
+]
+const userControllers = [
+  LoginController
+]
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    JwtModule.register({
+      global: true
+    })
+  ],
   providers: [
     UsersService,
     {
@@ -19,8 +31,8 @@ const userControllers = []
     ...userUseCases,
   ],
   controllers: [
+    ...userControllers,
     UsersController,
-    ...userControllers
   ]
 })
 export class UsersModule {}

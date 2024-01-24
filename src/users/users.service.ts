@@ -24,13 +24,13 @@ export class UsersService {
     return usersDomain.map(user => UserMapper.EntityOrDomainToReturn(user))
   }
 
-  async findOne(id: string): Promise<IUserDomainReturn> {
-    const userDomain = await this.userRepository.findOne(id)
+  async findById(id: string): Promise<IUserDomainReturn> {
+    const userDomain = await this.userRepository.findById(id)
     return UserMapper.EntityOrDomainToReturn(userDomain)
   }
 
   async update(id: string, data: Partial<IUserDomainInput>): Promise<IUserDomainReturn> {
-    const userDomain = await this.userRepository.findOne(id)
+    const userDomain = await this.userRepository.findById(id)
 
     if(data.password) userDomain.encryptPassword()
     userDomain.updateSelf(data)
