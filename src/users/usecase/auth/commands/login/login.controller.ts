@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, HttpException, Post, UseGuards } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from "@nestjs/swagger";
 import { LoginUseCase } from "./login.usecase";
 import { LoginDto } from "./login.dto";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('auth/login')
 @ApiTags('Autenticação')
@@ -20,12 +21,7 @@ export class LoginController {
     @Body()
     data: LoginDto
   ){
-    try{
       const result = await this.loginUseCase.execute(data)
       return {message: 'Usuário autenticado com sucesso!', ...result}
-    } catch (error) {
-      console.log(error)
-      throw new Error(error['message'])
-    }
   }
 }

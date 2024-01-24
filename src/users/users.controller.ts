@@ -3,7 +3,10 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiInternalSe
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateSelfDto, UpdateUserDto } from './user.dtos';
 import { stat } from 'fs';
-import { AuthGuard } from './usecase/auth/guards/auth.guard';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { Role } from './auth/rolesConfig/role.enum';
+import { Roles } from './auth/rolesConfig/role.decorator';
+import { RoleGuard } from './auth/guards/roles.guard';
 
 @Controller('users')
 @ApiTags('Usuários')
@@ -30,7 +33,8 @@ export class UsersController {
   @ApiOkResponse({status: 200, description: 'Usuários listados com sucesso'})
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
+  @Roles('admin')
+  @UseGuards(AuthGuard, RoleGuard)
   @Get('')
   async findAll(){
     const result = await this.usersService.findAll()
@@ -43,7 +47,7 @@ export class UsersController {
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
-  @Get(':id')
+  @Get('_/:id')
   async findOne(
     @Param('id')
     id: string
@@ -57,9 +61,9 @@ export class UsersController {
   @ApiNotFoundResponse({status: 404, description: 'Usuário não encontrado'})
   @ApiBadRequestResponse({status: 400, description: 'Erro por requisição mal formatada ou campos inválidos'})
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
-  @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
+  @Patch('_/:id')
   async update(
     @Param('id')
     id: string,
@@ -107,9 +111,9 @@ export class UsersController {
   @ApiNotFoundResponse({status: 404, description: 'Usuário não encontrado'})
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
   @HttpCode(204)
-  @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
+  @Delete('_/:id')
   async remove(
     @Param('id')
     id: string

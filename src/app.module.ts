@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
+import { RoleGuard } from './users/auth/guards/roles.guard';
 
 @Controller('')
 class DeployMessageController {
@@ -32,5 +33,11 @@ class DeployMessageController {
     UsersModule,
   ],
   controllers: [DeployMessageController],
+  providers: [
+    {
+      provide: 'APP_GUARD',
+      useClass: RoleGuard,
+    }
+  ],
 })
 export class AppModule {}

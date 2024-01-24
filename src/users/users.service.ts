@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { IUserDomainInput, IUserDomainReturn, UserDomain } from './domains/user.domain';
 import { UserMapper } from './mappers/user.mappers';
 import { UserRepositoryInterface } from './repository/user.repository.interface';
@@ -21,23 +21,28 @@ export class UsersService {
 
   async findAll(): Promise<IUserDomainReturn[]> {
     const usersDomain = await this.userRepository.findAll()
+    if(!usersDomain) throw new NotFoundException('Nenhum usuário encontrado', {cause: 'users.service'})
+    
     return usersDomain.map(user => UserMapper.EntityOrDomainToReturn(user))
   }
 
   async findById(id: string): Promise<IUserDomainReturn> {
     const userDomain = await this.userRepository.findById(id)
+    if(!userDomain) throw new NotFoundException('Usuário não encontrado', {cause: 'users.service'})
+
     return UserMapper.EntityOrDomainToReturn(userDomain)
   }
 
   async update(id: string, data: Partial<IUserDomainInput>): Promise<IUserDomainReturn> {
     const userDomain = await this.userRepository.findById(id)
+    if(!userDomain) throw new NotFoundException('Usuário não encontrado', {cause: 'users.service'})
 
     if(data.password) userDomain.encryptPassword()
     userDomain.updateSelf(data)
     
     const userUpdated = await this.userRepository.update(id, userDomain)
 
-    return UserMapper.EntityOrDomainToReturn(userDomain)
+    return UserMapper.EntityOrDomainToReturn(userUpdated)
   }
 
   async remove(id: string): Promise<void> {

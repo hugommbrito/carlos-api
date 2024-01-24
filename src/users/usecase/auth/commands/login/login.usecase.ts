@@ -1,4 +1,4 @@
-import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable, NotImplementedException, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UserRepositoryInterface } from "src/users/repository/user.repository.interface";
 import { LoginDto } from "./login.dto";
@@ -13,10 +13,10 @@ export class LoginUseCase {
 
   async execute(data: LoginDto){
     const user = await this.userRepository.findByEmail(data.email)
-    if(!user) throw new UnauthorizedException('Usuário ou senha inválidos')
+    if(!user) throw new UnauthorizedException('Usuário ou senha inválidos', {cause: 'login.usecase.'})
 
     const passwordMatch = user.checkPassword(data.password)
-    if(!passwordMatch) throw new UnauthorizedException('Usuário ou senha inválidos')
+    if(!passwordMatch) throw new UnauthorizedException('Usuário ou senha inválidos', {cause: 'login.usecase.'})
 
     const userProps = user.getPropsCopy()
     const tokenPayload = {
