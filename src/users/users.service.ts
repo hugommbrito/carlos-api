@@ -21,21 +21,21 @@ export class UsersService {
 
   async findAll(): Promise<IUserDomainReturn[]> {
     const usersDomain = await this.userRepository.findAll()
-    if(!usersDomain) throw new NotFoundException('Nenhum usuário encontrado', {cause: 'users.service'})
+    if(!usersDomain) throw new NotFoundException({}, {description:'Nenhum usuário encontrado', cause: 'users.service'})
     
     return usersDomain.map(user => UserMapper.EntityOrDomainToReturn(user))
   }
 
   async findById(id: string): Promise<IUserDomainReturn> {
     const userDomain = await this.userRepository.findById(id)
-    if(!userDomain) throw new NotFoundException('Usuário não encontrado', {cause: 'users.service'})
+    if(!userDomain) throw new NotFoundException({}, {description: 'Usuário não encontrado',cause: 'users.service'})
 
     return UserMapper.EntityOrDomainToReturn(userDomain)
   }
 
   async update(id: string, data: Partial<IUserDomainInput>): Promise<IUserDomainReturn> {
     const userDomain = await this.userRepository.findById(id)
-    if(!userDomain) throw new NotFoundException('Usuário não encontrado', {cause: 'users.service'})
+    if(!userDomain) throw new NotFoundException({}, {description: 'Usuário não encontrado',cause: 'users.service'})
 
     if(data.password) userDomain.encryptPassword()
     userDomain.updateSelf(data)

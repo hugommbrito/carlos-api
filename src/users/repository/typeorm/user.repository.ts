@@ -20,14 +20,14 @@ export class UserRepository implements UserRepositoryInterface {
       const userEntity = this.userRepository.create(userProps)
       const userPersistedOrError = await this.userRepository.save(userEntity)
   
-      if (userPersistedOrError instanceof Error) throw new InternalServerErrorException('Erro ao persistir usuário no DB', {cause: 'user.repository-try'})
+      if (userPersistedOrError instanceof Error) throw new InternalServerErrorException({}, {description: 'Erro ao persistir usuário no DB', cause: 'user.repository-try'})
       
       return UserMapper.EntityToDomain(userPersistedOrError)
 
     } catch (error) {
       console.error(error);
-      if(error['code'] === '23505') throw new BadRequestException('Email já cadastrado', {cause: 'user.repository'})
-      throw new InternalServerErrorException('Erro ao persistir usuário no DB', {cause: 'user.repository-catch'})
+      if(error['code'] === '23505') throw new BadRequestException({}, {description: 'Email já cadastrado', cause: 'user.repository-catch'})
+      throw new InternalServerErrorException({}, {description: 'Erro ao persistir usuário no DB', cause: 'user.repository-catch'})
     }
   }
 
@@ -39,14 +39,14 @@ export class UserRepository implements UserRepositoryInterface {
       const userProps = UserMapper.DomainToPersistence(user)
   
       const updatedUserOrError = await this.userRepository.update(id, userProps)
-      if (updatedUserOrError instanceof Error) throw new InternalServerErrorException('Erro ao permanecer as atualizações do usuário no DB')
+      if (updatedUserOrError instanceof Error) throw new InternalServerErrorException({},{description: 'Erro ao permanecer as atualizações do usuário no DB', cause: 'user.repository'})
   
       return UserMapper.EntityToDomain(userToUpdate)
 
     } catch (error) {
       console.error(error);
-      if(error['code'] === '23505') throw new BadRequestException('Email já cadastrado')
-      throw new InternalServerErrorException('Erro ao atualizar usuário no DB', {cause: 'user.repository'})
+      if(error['code'] === '23505') throw new BadRequestException({}, {description: 'Email já cadastrado', cause: 'user.repository-catch'})
+      throw new InternalServerErrorException({}, {description: 'Erro ao atualizar usuário no DB', cause: 'user.repository-catch'})
     }
   }
 
@@ -73,7 +73,7 @@ export class UserRepository implements UserRepositoryInterface {
   
   async remove(id: string): Promise<void> {
     const user = await this.userRepository.findOneBy({id})
-    if(!user) throw new NotFoundException('Erro ao fazer a consulta no DB, usuário não encontrado', {cause: 'user.repository'})
+    if(!user) throw new NotFoundException({}, {description: 'Erro ao fazer a consulta no DB, usuário não encontrado', cause: 'user.repository'})
 
     this.userRepository.softRemove(user)
   }

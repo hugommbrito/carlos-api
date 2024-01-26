@@ -13,10 +13,10 @@ export class LoginUseCase {
 
   async execute(data: LoginDto){
     const user = await this.userRepository.findByEmail(data.email)
-    if(!user) throw new UnauthorizedException('Usuário ou senha inválidos', {cause: 'login.usecase.'})
+    if(!user) throw new UnauthorizedException({}, {description: 'Usuário ou senha inválidos',cause: 'login.usecase.'})
 
     const passwordMatch = user.checkPassword(data.password)
-    if(!passwordMatch) throw new UnauthorizedException('Usuário ou senha inválidos', {cause: 'login.usecase.'})
+    if(!passwordMatch) throw new UnauthorizedException({}, {description: 'Usuário ou senha inválidos',cause: 'login.usecase..'})
 
     const userProps = user.getPropsCopy()
     const tokenPayload = {
