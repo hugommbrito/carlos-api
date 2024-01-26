@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Req, Request, Res, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateSelfDto, UpdateUserDto } from './user.dtos';
@@ -6,7 +6,7 @@ import { stat } from 'fs';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { Role } from './auth/rolesConfig/role.enum';
 import { Roles } from './auth/rolesConfig/role.decorator';
-import { RoleGuard } from './auth/guards/roles.guard';
+import { RoleGuard, SelfOrRoleGuard } from './auth/guards/roles.guard';
 
 @Controller('users')
 @ApiTags('Usuários')
@@ -33,7 +33,7 @@ export class UsersController {
   @ApiOkResponse({status: 200, description: 'Usuários listados com sucesso'})
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
   @ApiBearerAuth()
-  @Roles('admin')
+  @Roles(Role.admin)
   @UseGuards(AuthGuard, RoleGuard)
   @Get('')
   async findAll(){
@@ -46,7 +46,8 @@ export class UsersController {
   @ApiOkResponse({status: 200, description: 'Usuário encontrado com sucesso'})
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, SelfOrRoleGuard)
   @Get('_/:id')
   async findOne(
     @Param('id')

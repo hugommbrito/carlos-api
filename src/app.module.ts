@@ -35,9 +35,13 @@ class DeployMessageController {
   controllers: [DeployMessageController],
   providers: [
     {
-      provide: 'APP_GUARD',
+      provide: 'ROLE_GUARD',
       useClass: RoleGuard,
-    }
+    },
+    {
+      provide: 'SELF_ROLE_GUARD',
+      useClass: RoleGuard,
+    },
   ],
 })
 export class AppModule {}
