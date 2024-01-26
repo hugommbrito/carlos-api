@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { RoleGuard } from './users/auth/guards/roles.guard';
+import { RewardsModule } from './rewards/rewards.module';
 
 @Controller('')
 class DeployMessageController {
@@ -31,6 +32,7 @@ class DeployMessageController {
       synchronize: process.env.NODE_ENV === 'development',
     }),
     UsersModule,
+    RewardsModule,
   ],
   controllers: [DeployMessageController],
   providers: [

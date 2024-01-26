@@ -44,7 +44,7 @@ export class UserDomain {
         propKey === 'deletedAt' ||
         propKey === 'id'
       ){
-        throw new MethodNotAllowedException(`${propKey} não pode ser atualizado por este método`)
+        throw new MethodNotAllowedException({}, {description: `${propKey} não pode ser atualizado por este método`, cause: 'user.domain-updateSelf'})
       }
       if(propKey === 'password') this.encryptPassword()
       this.props[propKey] = props[propKey]
