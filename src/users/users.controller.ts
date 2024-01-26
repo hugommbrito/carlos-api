@@ -33,7 +33,7 @@ export class UsersController {
   @ApiOkResponse({status: 200, description: 'Usuários listados com sucesso'})
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
   @ApiBearerAuth()
-  @Roles(Role.admin)
+  @Roles(Role.admin, Role.staff)
   @UseGuards(AuthGuard, RoleGuard)
   @Get('')
   async findAll(){
@@ -63,7 +63,8 @@ export class UsersController {
   @ApiBadRequestResponse({status: 400, description: 'Erro por requisição mal formatada ou campos inválidos'})
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, SelfOrRoleGuard)
   @Patch('_/:id')
   async update(
     @Param('id')
@@ -74,6 +75,7 @@ export class UsersController {
     const result = await this.usersService.update(id, data)
     return {message: `Usuário ${result.name} atualizado com sucesso!`,user: result}
   }
+
   @ApiOperation({summary: 'Buscar as informações do usuário logado'})
   @ApiNotFoundResponse({status: 404, description: 'Usuário não encontrado'})
   @ApiOkResponse({status: 200, description: 'Usuário encontrado com sucesso'})
@@ -113,7 +115,8 @@ export class UsersController {
   @ApiInternalServerErrorResponse({status: 500, description: 'Erro interno do servidor'})
   @HttpCode(204)
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
+  @Roles(Role.admin)
+  @UseGuards(AuthGuard, RoleGuard)
   @Delete('_/:id')
   async remove(
     @Param('id')
