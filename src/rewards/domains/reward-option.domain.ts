@@ -1,3 +1,4 @@
+import { MethodNotAllowedException } from "@nestjs/common";
 import { randomUUID } from "crypto";
 
 export class RewardOptionDomain {
@@ -26,7 +27,6 @@ export class RewardOptionDomain {
     if (!this.props.name) throw new Error("Name is required");
     if (!this.props.description) throw new Error("Description is required");
     if (!this.props.value) throw new Error("Value is required");
-    if (!this.props.isActive) throw new Error("isActive is required");
     
   }
 
@@ -34,8 +34,38 @@ export class RewardOptionDomain {
     return new RewardOptionDomain(inputProps);
   }
 
-  static load(props: IRewardOptionDomain): RewardOptionDomain {
-    return new RewardOptionDomain(props);
+  static load(props: IRewardOptionDomain,
+    id?: string,
+    createdAt?: Date,
+    updatedAt?: Date,
+    deletedAt?: Date): RewardOptionDomain {
+    return new RewardOptionDomain(props, id, createdAt, updatedAt, deletedAt);
+  }
+
+  public updateSelf(props: Partial<IRewardOptionInput>): void {
+    Object.keys(props).forEach(propKey => {
+      if(
+        propKey === 'createdAt' ||
+        propKey === 'updatedAt' ||
+        propKey === 'deletedAt' ||
+        propKey === 'id'
+      ){
+        throw new MethodNotAllowedException({}, {description: `${propKey} não pode ser atualizado por este método`, cause: 'reward-option.domain-updateSelf'})
+      }
+      this.props[propKey] = props[propKey]
+    })
+  }
+
+  public getAllPropsCopy(): IRewardOptionDomain {
+    return Object.freeze({ ...this.props })
+  }
+  public getPropsCopy(): IRewardOptionDomain {
+    const { deletedAt, ...otherProps } = this.props
+    return Object.freeze(otherProps)
+  }
+
+  public switchActiveStatus(): void {
+    this.props.isActive = !this.props.isActive
   }
   
 }
@@ -52,6 +82,6 @@ export interface IRewardOptionInput {
   description: string;
   value: number;
   dueDate?: Date;
-  isActive: boolean;
+  isActive?: boolean;
   imgUrl?: string;
 }

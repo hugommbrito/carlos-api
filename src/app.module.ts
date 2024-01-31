@@ -5,9 +5,12 @@ import { User } from './users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { RoleGuard } from './users/auth/guards/roles.guard';
 import { RewardsModule } from './rewards/rewards.module';
+import { RewardOption } from './rewards/entity/reward-option';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('')
 class DeployMessageController {
+  @ApiTags('.')
   @Get()
   deployMsg() {
     return {
@@ -27,10 +30,11 @@ class DeployMessageController {
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      entities: [User],
+      entities: [User, RewardOption],
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV === 'development',
     }),
+    // TypeOrmModule.forFeature([User, RewardOption]),
     UsersModule,
     RewardsModule,
   ],

@@ -1,9 +1,37 @@
 import { Module } from '@nestjs/common';
-import { RewardsController } from './rewards.controller';
-import { RewardsService } from './rewards.service';
+import { RewardOptionController } from './usecases/reward-options/CRUD/reward-option.controller';
+import { RewardOptionService } from './usecases/reward-options/CRUD/reward-option.service';
+import { RewardOptionRepository } from './repository/typeorm/reward-option.repository';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RewardOption } from './entity/reward-option';
+
+import { SwitchActiveStatusUsecase } from './usecases/reward-options/commands/switch-active-status.usecase';
+import { SwitchActiveStatusController } from './usecases/reward-options/commands/switch-active-status.controller';
+
+const RewardOptionsUseCases = {
+  controllers: [
+    SwitchActiveStatusController,
+  ],
+  services: [
+    SwitchActiveStatusUsecase
+  ]
+}
 
 @Module({
-  controllers: [RewardsController],
-  providers: [RewardsService]
+  imports: [
+    TypeOrmModule.forFeature([RewardOption])
+  ],
+  controllers: [
+    RewardOptionController,
+    ...RewardOptionsUseCases.controllers,
+  ],
+  providers: [
+    RewardOptionService,
+    ...RewardOptionsUseCases.services,
+    {
+      provide: 'reward-option_repository',
+      useClass: RewardOptionRepository
+    }
+  ]
 })
 export class RewardsModule {}

@@ -25,7 +25,6 @@ export class CreateUserDto {
     description: "Data de nascimento do usuário"
   })
   @IsDateString()
-  // @MaxDate(new Date())
   birthdate: Date;
   
   @ApiProperty({
