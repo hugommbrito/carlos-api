@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { RewardRegister } from "./reward-register";
 
-@Entity()
+@Entity('reward_options')
 export class RewardOption {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -46,6 +47,9 @@ export class RewardOption {
     default: process.env.DEFAULT_REWARD_OPTION_IMG_URL,
   })
   imgUrl: string;
+
+  @OneToMany(() => RewardRegister, rewardRegister => rewardRegister.rewardOption)
+  rewardRegisters: RewardRegister[]
 
   @CreateDateColumn()
   createdAt: Date;

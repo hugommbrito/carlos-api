@@ -4,11 +4,7 @@ import { RewardOption } from "../entity/reward-option";
 export class RewardOptionMapper {
   static EntityToDomain(rewardOptionEntity: RewardOption): RewardOptionDomain {
     return RewardOptionDomain.load(
-      {...rewardOptionEntity},
-      rewardOptionEntity.id || undefined,
-      rewardOptionEntity.createdAt || undefined,
-      rewardOptionEntity.updatedAt || undefined,
-      rewardOptionEntity.deletedAt || undefined
+      {...rewardOptionEntity}
       )
   }
 

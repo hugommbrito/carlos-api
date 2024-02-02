@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { RewardRegister } from "src/rewards/entity/reward-register";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -55,6 +56,9 @@ export class User {
     default: true,
   })
   isActive: boolean;
+
+  @OneToMany(() => RewardRegister, rewardRegister => rewardRegister.user)
+  rewardRegisters: RewardRegister[]
 
   @CreateDateColumn()
   createdAt: Date;

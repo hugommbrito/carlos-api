@@ -7,6 +7,7 @@ import { RewardOption } from './entity/reward-option';
 
 import { SwitchActiveStatusUsecase } from './usecases/reward-options/commands/switch-active-status.usecase';
 import { SwitchActiveStatusController } from './usecases/reward-options/commands/switch-active-status.controller';
+import { RewardRegister } from './entity/reward-register';
 
 const RewardOptionsUseCases = {
   controllers: [
@@ -19,7 +20,7 @@ const RewardOptionsUseCases = {
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([RewardOption])
+    TypeOrmModule.forFeature([RewardOption, RewardRegister])
   ],
   controllers: [
     RewardOptionController,

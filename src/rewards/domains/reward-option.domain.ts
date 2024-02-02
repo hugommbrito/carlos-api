@@ -34,12 +34,8 @@ export class RewardOptionDomain {
     return new RewardOptionDomain(inputProps);
   }
 
-  static load(props: IRewardOptionDomain,
-    id?: string,
-    createdAt?: Date,
-    updatedAt?: Date,
-    deletedAt?: Date): RewardOptionDomain {
-    return new RewardOptionDomain(props, id, createdAt, updatedAt, deletedAt);
+  static load(props: IRewardOptionDomain): RewardOptionDomain {
+    return new RewardOptionDomain(props);
   }
 
   public updateSelf(props: Partial<IRewardOptionInput>): void {
