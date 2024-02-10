@@ -10,12 +10,8 @@ import { UsersService } from './users.service';
 import { LocalStrategy } from './auth/strategy/local.strategy';
 import { PassportModule } from '@nestjs/passport';
 
-const userUseCases = [
-  LoginUseCase
-]
-const userControllers = [
-  LoginController
-]
+const userUseCases = [LoginUseCase];
+const userControllers = [LoginController];
 
 @Module({
   imports: [
@@ -23,7 +19,7 @@ const userControllers = [
     JwtModule.register({
       global: true
     }),
-    PassportModule,
+    PassportModule
   ],
   providers: [
     UsersService,
@@ -32,11 +28,8 @@ const userControllers = [
       useClass: UserRepository
     },
     LocalStrategy,
-    ...userUseCases,
+    ...userUseCases
   ],
-  controllers: [
-    ...userControllers,
-    UsersController,
-  ]
+  controllers: [...userControllers, UsersController]
 })
 export class UsersModule {}

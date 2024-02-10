@@ -5,7 +5,7 @@ import { User } from './users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { RoleGuard } from './users/auth/guards/roles.guard';
 import { RewardsModule } from './rewards/rewards.module';
-import { RewardOption } from './rewards/entity/reward-option';
+import { RewardOption } from './rewards/entity/reward-option.entity';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('')
@@ -16,7 +16,7 @@ class DeployMessageController {
     return {
       Project: 'API Plataforma Carlos Ferreira Team',
       status: 'Successfully Deployed!',
-      dateChecked: new Date(),
+      dateChecked: new Date()
     };
   }
 }
@@ -25,29 +25,29 @@ class DeployMessageController {
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: '.env'
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
       entities: [User, RewardOption],
       autoLoadEntities: true,
-      synchronize: process.env.NODE_ENV === 'development',
+      synchronize: process.env.NODE_ENV === 'development'
     }),
     // TypeOrmModule.forFeature([User, RewardOption]),
     UsersModule,
-    RewardsModule,
+    RewardsModule
   ],
   controllers: [DeployMessageController],
   providers: [
     {
       provide: 'ROLE_GUARD',
-      useClass: RoleGuard,
+      useClass: RoleGuard
     },
     {
       provide: 'SELF_ROLE_GUARD',
-      useClass: RoleGuard,
-    },
-  ],
+      useClass: RoleGuard
+    }
+  ]
 })
 export class AppModule {}

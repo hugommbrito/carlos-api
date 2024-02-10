@@ -1,11 +1,18 @@
-import { randomUUID } from "crypto";
-import * as bcrypt from 'bcrypt'
-import { MethodNotAllowedException } from "@nestjs/common";
+import { randomUUID } from 'crypto';
+import * as bcrypt from 'bcrypt';
+import { MethodNotAllowedException } from '@nestjs/common';
 
 export class UserDomain {
   private readonly props: IUserDomain;
 
-  constructor(inputProps: IUserDomainInput, id?: string, isActive?: boolean, createdAt?: Date, updatedAt?: Date, deletedAt?: Date) {
+  constructor(
+    inputProps: IUserDomainInput,
+    id?: string,
+    isActive?: boolean,
+    createdAt?: Date,
+    updatedAt?: Date,
+    deletedAt?: Date
+  ) {
     const now = new Date();
     this.props = {
       ...inputProps,
@@ -13,19 +20,18 @@ export class UserDomain {
       isActive: isActive || true,
       createdAt: createdAt || now,
       updatedAt: updatedAt || now,
-      deletedAt: deletedAt || null,
+      deletedAt: deletedAt || null
     };
     this.validate();
   }
 
   private validate(): void {
-    if (!this.props.name)  throw new Error("Name is required");
-    if (!this.props.surname)  throw new Error("Surname is required");
-    if (!this.props.birthdate)  throw new Error("Birthdate is required");
-    if (this.props.birthdate > new Date())  throw new Error("Birthdate must not be in the future")
-    if (!this.props.email)  throw new Error("Email is required");
-    if (!this.props.password)  throw new Error("Password is required");
-
+    if (!this.props.name) throw new Error('Name is required');
+    if (!this.props.surname) throw new Error('Surname is required');
+    if (!this.props.birthdate) throw new Error('Birthdate is required');
+    if (this.props.birthdate > new Date()) throw new Error('Birthdate must not be in the future');
+    if (!this.props.email) throw new Error('Email is required');
+    if (!this.props.password) throw new Error('Password is required');
   }
 
   static create(inputProps: IUserDomainInput): UserDomain {
@@ -37,18 +43,16 @@ export class UserDomain {
   }
 
   public updateSelf(props: Partial<IUserDomainInput>): void {
-    Object.keys(props).forEach(propKey => {
-      if(
-        propKey === 'createdAt' ||
-        propKey === 'updatedAt' ||
-        propKey === 'deletedAt' ||
-        propKey === 'id'
-      ){
-        throw new MethodNotAllowedException({}, {description: `${propKey} não pode ser atualizado por este método`, cause: 'user.domain-updateSelf'})
+    Object.keys(props).forEach((propKey) => {
+      if (propKey === 'createdAt' || propKey === 'updatedAt' || propKey === 'deletedAt' || propKey === 'id') {
+        throw new MethodNotAllowedException(
+          {},
+          { description: `${propKey} não pode ser atualizado por este método`, cause: 'user.domain-updateSelf' }
+        );
       }
-      if(propKey === 'password') this.encryptPassword()
-      this.props[propKey] = props[propKey]
-    })
+      if (propKey === 'password') this.encryptPassword();
+      this.props[propKey] = props[propKey];
+    });
   }
 
   public encryptPassword(): void {
@@ -63,13 +67,12 @@ export class UserDomain {
   }
 
   public getAllPropsCopy(): IUserDomain {
-    return Object.freeze({...this.props})
+    return Object.freeze({ ...this.props });
   }
   public getPropsCopy(): IUserDomainReturn {
     const { password, deletedAt, ...otherProps } = this.props;
     return Object.freeze(otherProps);
   }
-
 }
 
 export interface IUserDomain extends IUserDomainInput {
@@ -86,7 +89,7 @@ export interface IUserDomainInput {
   birthdate: Date;
   email: string;
   password: string;
-  role?: "admin" | "staff" | "user";
+  role?: 'admin' | 'staff' | 'user';
 }
 
 export interface IUserDomainReturn extends Omit<IUserDomain, 'password'> {}
