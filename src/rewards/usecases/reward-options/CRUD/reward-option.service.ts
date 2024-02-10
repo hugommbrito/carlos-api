@@ -11,11 +11,9 @@ export class RewardOptionService {
   ) {}
 
   async create(data: IRewardOptionInput): Promise<IRewardOptionDomain> {
-
     const rewardOptionDomain = RewardOptionDomain.create(data);
 
     const rewardOptionPersisted = await this.rewardOptionRepository.create(rewardOptionDomain);
-
 
     return RewardOptionMapper.EntityOrDomainToReturn(rewardOptionPersisted);
   }

@@ -1,5 +1,13 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { RewardRegister } from "./reward-register";
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from 'typeorm';
+import { RewardRegister } from './reward-register.entity';
 
 @Entity('reward_options')
 export class RewardOption {
@@ -9,34 +17,34 @@ export class RewardOption {
   @Column({
     type: 'varchar',
     length: 50,
-    nullable: false,
+    nullable: false
   })
   name: string;
 
   @Column({
     type: 'varchar',
     length: 350,
-    nullable: false,
+    nullable: false
   })
   description: string;
 
   @Column({
     type: 'int',
-    nullable: false,
+    nullable: false
   })
   value: number;
 
   @Column({
     type: 'date',
     nullable: true,
-    default: null,
+    default: null
   })
   dueDate?: Date;
 
   @Column({
     type: 'boolean',
     nullable: false,
-    default: true,
+    default: true
   })
   isActive: boolean;
 
@@ -44,12 +52,12 @@ export class RewardOption {
     type: 'varchar',
     length: 3500,
     nullable: false,
-    default: process.env.DEFAULT_REWARD_OPTION_IMG_URL,
+    default: process.env.DEFAULT_REWARD_OPTION_IMG_URL
   })
   imgUrl: string;
 
-  @OneToMany(() => RewardRegister, rewardRegister => rewardRegister.rewardOption)
-  rewardRegisters: RewardRegister[]
+  @OneToMany(() => RewardRegister, (rewardRegister) => rewardRegister.rewardOption)
+  rewardRegisters: RewardRegister[];
 
   @CreateDateColumn()
   createdAt: Date;

@@ -1,5 +1,13 @@
-import { RewardRegister } from "src/rewards/entity/reward-register";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { RewardRegister } from 'src/rewards/entity/reward-register.entity';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -9,20 +17,20 @@ export class User {
   @Column({
     type: 'varchar',
     length: 50,
-    nullable: false,
+    nullable: false
   })
   name: string;
 
   @Column({
     type: 'varchar',
     length: 150,
-    nullable: false,
+    nullable: false
   })
   surname: string;
 
   @Column({
     type: 'date',
-    nullable: false,
+    nullable: false
   })
   birthdate: Date;
 
@@ -30,14 +38,14 @@ export class User {
     type: 'varchar',
     length: 150,
     nullable: false,
-    unique: true,
+    unique: true
   })
   email: string;
 
   @Column({
     type: 'varchar',
     length: 150,
-    nullable: false,
+    nullable: false
   })
   password: string;
 
@@ -45,20 +53,20 @@ export class User {
     type: 'varchar',
     length: 50,
     nullable: false,
-    enum: ["admin", "staff", "user"],
-    default: "user",
+    enum: ['admin', 'staff', 'user'],
+    default: 'user'
   })
-  role: "admin" | "staff" | "user";
+  role: 'admin' | 'staff' | 'user';
 
   @Column({
     type: 'boolean',
     nullable: false,
-    default: true,
+    default: true
   })
   isActive: boolean;
 
-  @OneToMany(() => RewardRegister, rewardRegister => rewardRegister.user)
-  rewardRegisters: RewardRegister[]
+  @OneToMany(() => RewardRegister, (rewardRegister) => rewardRegister.user)
+  rewardRegisters: RewardRegister[];
 
   @CreateDateColumn()
   createdAt: Date;
@@ -68,5 +76,4 @@ export class User {
 
   @DeleteDateColumn()
   deletedAt?: Date | null;
-
 }
