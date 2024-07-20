@@ -1,9 +1,9 @@
 import { Controller, Get, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './damin.users/users.module';
-import { User } from './damin.users/entities/user.entity';
+import { UsersModule } from './domain.users/users.module';
+import { User } from './domain.users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
-import { RoleGuard, SelfOrRoleGuard } from './damin.users/auth/guards/roles.guard';
+import { RoleGuard, SelfOrRoleGuard } from './domain.users/auth/guards/roles.guard';
 import { RewardsModule } from './domain.rewards/rewards.module';
 import { RewardOption } from './domain.rewards/entity/reward-option.entity';
 import { ApiTags } from '@nestjs/swagger';

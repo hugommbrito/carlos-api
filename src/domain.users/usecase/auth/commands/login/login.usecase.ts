@@ -7,7 +7,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepositoryInterface } from 'src/damin.users/repository/user.repository.interface';
+import { UserRepositoryInterface } from 'src/domain.users/repository/user.repository.interface';
 import { LoginDto } from './login.dto';
 
 @Injectable()

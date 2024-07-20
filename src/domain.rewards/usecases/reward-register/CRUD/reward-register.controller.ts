@@ -11,10 +11,10 @@ import {
   ApiTags
 } from '@nestjs/swagger';
 import { RewardRegisterService } from './reward-register.service';
-import { Roles } from 'src/damin.users/auth/rolesConfig/role.decorator';
-import { Role } from 'src/damin.users/auth/rolesConfig/role.enum';
-import { AuthGuard } from 'src/damin.users/auth/guards/auth.guard';
-import { RoleGuard } from 'src/damin.users/auth/guards/roles.guard';
+import { Roles } from 'src/domain.users/auth/rolesConfig/role.decorator';
+import { Role } from 'src/domain.users/auth/rolesConfig/role.enum';
+import { AuthGuard } from 'src/domain.users/auth/guards/auth.guard';
+import { RoleGuard } from 'src/domain.users/auth/guards/roles.guard';
 import { CreateRewardRegisterDto } from './reward-register.dto';
 
 @Controller('reward-register')

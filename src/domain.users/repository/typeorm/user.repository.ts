@@ -7,9 +7,9 @@ import {
   NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserDomain } from 'src/damin.users/domains/user.domain';
-import { User } from 'src/damin.users/entities/user.entity';
-import { UserMapper } from 'src/damin.users/mappers/user.mappers';
+import { UserDomain } from 'src/domain.users/domains/user.domain';
+import { User } from 'src/domain.users/entities/user.entity';
+import { UserMapper } from 'src/domain.users/mappers/user.mappers';
 import { Repository } from 'typeorm';
 import { UserRepositoryInterface } from '../user.repository.interface';
 
