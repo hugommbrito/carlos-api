@@ -36,7 +36,8 @@ export class RequestRecoverEmailUsecase {
       subject: 'Recuperação de senha - Não Pense Vai!',
       text: `Olá ${user.getPropsCopy().name}, clique no link para recuperar sua senha: ${process.env.FRONTEND_URL}/reset-password/${token}`,
       html: `<p>Olá ${user.getPropsCopy().name},</p><br/>
-      <p>Clique no link para recuperar sua senha: <a href="${process.env.FRONTEND_URL}/reset-password/${token}">Recuperar senha</a></p>`
+      <p>Clique no link para recuperar sua senha: <a href="${process.env.FRONTEND_URL}/reset-password/${token}">Recuperar senha</a></p></br>
+      <p>Este link é válido para alterar sua senha durante <strong>30 minutos</strong>, após este prazo, favor solicitar um novo link.</p>`
     }
 
     await this.mailerService.sendEmail(emailInformation)

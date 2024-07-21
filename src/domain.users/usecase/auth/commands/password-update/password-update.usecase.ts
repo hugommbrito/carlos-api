@@ -11,7 +11,7 @@ export class PasswordUpdateUseCase {
     private readonly userRepository: UserRepositoryInterface,
   ) {}
 
-  async updatePassword(data: passwordUpdateDto, userId): Promise<any> {
+  async updatePassword(data: passwordUpdateDto, userId: string): Promise<any> {
     const userDomain: UserDomain = await this.userRepository.findById(userId)
     if (!userDomain){
       throw new NotFoundException({}, { description: 'Usuário não encontrado', cause: 'password-update.usecase' });

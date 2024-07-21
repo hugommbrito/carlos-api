@@ -14,9 +14,21 @@ import { RequestRecoverEmailController } from './usecase/auth/commands/password-
 import { emailProvider } from 'src/providers/nodemailer/mailer.provider';
 import { PasswordUpdateUseCase } from './usecase/auth/commands/password-update/password-update.usecase';
 import { PasswordUpdateController } from './usecase/auth/commands/password-update/password-update.controller';
+import { PasswordRecoverUpdateUseCase } from './usecase/auth/commands/password-recover-update /password-recover-update.usecase';
+import { PasswordRecoverUpdateController } from './usecase/auth/commands/password-recover-update /password-recover-update.controller';
 
-const userUseCases = [LoginUseCase, RequestRecoverEmailUsecase, PasswordUpdateUseCase];
-const userControllers = [LoginController, RequestRecoverEmailController, PasswordUpdateController];
+const userUseCases = [
+  LoginUseCase,
+  PasswordUpdateUseCase,
+  RequestRecoverEmailUsecase,
+  PasswordRecoverUpdateUseCase,
+];
+const userControllers = [
+  LoginController,
+  PasswordUpdateController,
+  PasswordRecoverUpdateController,
+  RequestRecoverEmailController,
+];
 
 @Module({
   imports: [
