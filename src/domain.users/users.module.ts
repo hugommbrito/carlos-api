@@ -12,9 +12,11 @@ import { PassportModule } from '@nestjs/passport';
 import { RequestRecoverEmailUsecase } from './usecase/auth/commands/password-recover-email/request-recover-email.usecase';
 import { RequestRecoverEmailController } from './usecase/auth/commands/password-recover-email/request-recover-email.controller';
 import { emailProvider } from 'src/providers/nodemailer/mailer.provider';
+import { PasswordUpdateUseCase } from './usecase/auth/commands/password-update/password-update.usecase';
+import { PasswordUpdateController } from './usecase/auth/commands/password-update/password-update.controller';
 
-const userUseCases = [LoginUseCase, RequestRecoverEmailUsecase];
-const userControllers = [LoginController, RequestRecoverEmailController];
+const userUseCases = [LoginUseCase, RequestRecoverEmailUsecase, PasswordUpdateUseCase];
+const userControllers = [LoginController, RequestRecoverEmailController, PasswordUpdateController];
 
 @Module({
   imports: [

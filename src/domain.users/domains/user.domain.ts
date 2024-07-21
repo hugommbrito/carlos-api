@@ -50,7 +50,7 @@ export class UserDomain {
           { description: `${propKey} não pode ser atualizado por este método`, cause: 'user.domain-updateSelf' }
         );
       }
-      if (propKey === 'password') this.encryptPassword();
+      // if (propKey === 'password'){this.encryptPassword()};
       this.props[propKey] = props[propKey];
     });
   }
