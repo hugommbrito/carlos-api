@@ -10,9 +10,7 @@ export class CourseMapper {
     return { ...courseDomain.getAllPropsCopy() };
   }
 
-  static EntityOrDomainToReturn(
-    courseEntityOrDomain: Course | CourseDomain | ICourseDomain
-  ): ICourseDomain {
+  static EntityOrDomainToReturn(courseEntityOrDomain: Course | CourseDomain | ICourseDomain): ICourseDomain {
     if (courseEntityOrDomain instanceof CourseDomain) {
       return courseEntityOrDomain.getAllPropsCopy();
     }

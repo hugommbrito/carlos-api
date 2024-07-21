@@ -10,12 +10,12 @@ export class PasswordRecoverUpdateUseCase {
   constructor(
     @Inject('user_repository')
     private readonly userRepository: UserRepositoryInterface,
-    
+
     private readonly jwtService: JwtService
   ) {}
 
   async updatePassword(data: passwordRecoverUpdateDto, token: string): Promise<any> {
-    const userId = this.jwtService.verify(token, {secret: process.env.JWT_SECRET}).sub
+    const userId = this.jwtService.verify(token, { secret: process.env.JWT_SECRET }).sub;
 
     const userDomain: UserDomain = await this.userRepository.findById(userId);
     if (!userDomain) {

@@ -7,24 +7,24 @@ export class CreateModuleDto {
     example: 'Introdução ao Fitness'
   })
   @IsString()
-  name: string
+  name: string;
 
   @ApiProperty({
     description: 'Ordem de exibição do módulo',
     example: 1
   })
-  @IsNumber({maxDecimalPlaces: 0, allowNaN: false, allowInfinity: false})
+  @IsNumber({ maxDecimalPlaces: 0, allowNaN: false, allowInfinity: false })
   @IsPositive()
-  order: number
+  order: number;
 
   @ApiProperty({
     description: 'Se o módulo está ativo ou não',
     example: true,
-    default: true,
+    default: true
   })
   @IsBoolean()
   @IsOptional()
-  isActive?: boolean
+  isActive?: boolean;
 
   @ApiProperty({
     description: 'ID do curso ao qual o módulo pertence',
@@ -32,8 +32,7 @@ export class CreateModuleDto {
   })
   @IsNumber()
   @IsPositive()
-  courseId: number
+  courseId: number;
 }
 
-export class UpdateModuleDto extends PartialType(CreateModuleDto){}
-
+export class UpdateModuleDto extends PartialType(CreateModuleDto) {}

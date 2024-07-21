@@ -1,13 +1,20 @@
-import { MethodNotAllowedException } from "@nestjs/common";
-import { ILectureDomain, LectureDomain } from "./lecture.domain"; 
-import { Course } from "../entity/course.entity";
-import { ICourseDomain } from "./course.domain";
-import { Lecture } from "../entity/lecture.entity";
+import { MethodNotAllowedException } from '@nestjs/common';
+import { ILectureDomain, LectureDomain } from './lecture.domain';
+import { Course } from '../entity/course.entity';
+import { ICourseDomain } from './course.domain';
+import { Lecture } from '../entity/lecture.entity';
 
 export class ModuleDomain {
   private readonly props: IModuleDomain;
 
-  constructor(inputProps: IModuleInput, id?: number, createdAt?: Date, updatedAt?: Date, deletedAt?: Date | null, lectures?: LectureDomain[] | Lecture[]) {
+  constructor(
+    inputProps: IModuleInput,
+    id?: number,
+    createdAt?: Date,
+    updatedAt?: Date,
+    deletedAt?: Date | null,
+    lectures?: LectureDomain[] | Lecture[]
+  ) {
     const now = new Date();
     this.props = {
       ...inputProps,
@@ -39,25 +46,25 @@ export class ModuleDomain {
         propKey === 'courseId' ||
         propKey === 'course' ||
         propKey === 'order' ||
-        propKey === 'isActive' 
-      ){
+        propKey === 'isActive'
+      ) {
         throw new MethodNotAllowedException(
           {},
           {
             description: `${propKey} não pode ser atualizado por este método`,
             cause: 'module.domain-updateSelf'
           }
-        )
+        );
       }
       this.props[propKey] = props[propKey];
-      this.validate()
-    })
+      this.validate();
+    });
   }
 
   private validate(): void {
     if (!this.props.name) throw new Error('Name is required');
     if (!this.props.order) throw new Error('Order is required');
-    // if (!this.props.course) throw new Error('Course is required');
+    // if (!this.props.course) throw new Error('Course is required')
   }
 
   public getAllPropsCopy(): IModuleDomain {
@@ -72,7 +79,6 @@ export class ModuleDomain {
   public switchActiveStatus(): void {
     this.props.isActive = !this.props.isActive;
   }
-  
 }
 
 export interface IModuleDomain extends IModuleInput {

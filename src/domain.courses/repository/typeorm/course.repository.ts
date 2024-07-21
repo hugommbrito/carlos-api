@@ -16,7 +16,7 @@ export class CourseRepository implements CourseRepositoryInterface {
   async create(course: CourseDomain): Promise<CourseDomain> {
     try {
       const courseProps = CourseMapper.DomainToPersistence(course);
-      console.log(courseProps);
+      // console.log(courseProps)
       const entity = this.courseRepository.create({ ...courseProps, modules: [] });
       const persistedOrError = await this.courseRepository.save(entity);
 

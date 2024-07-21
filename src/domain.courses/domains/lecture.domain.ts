@@ -1,7 +1,6 @@
-import { MethodNotAllowedException } from "@nestjs/common";
-import { IModuleDomain, ModuleDomain } from "./module.domain";
-import { Module } from "../entity/module.entity";
-
+import { MethodNotAllowedException } from '@nestjs/common';
+import { IModuleDomain, ModuleDomain } from './module.domain';
+import { Module } from '../entity/module.entity';
 
 export class LectureDomain {
   private readonly props: ILectureDomain;
@@ -37,18 +36,18 @@ export class LectureDomain {
         propKey === 'module' ||
         propKey === 'order' ||
         propKey === 'isActive'
-      ){
+      ) {
         throw new MethodNotAllowedException(
           {},
           {
             description: `${propKey} não pode ser atualizado por este método`,
             cause: 'lecture.domain-updateSelf'
           }
-        )
+        );
       }
       this.props[propKey] = props[propKey];
-      this.validate()
-    })
+      this.validate();
+    });
   }
 
   private validate(): void {
@@ -56,7 +55,7 @@ export class LectureDomain {
     if (!this.props.youtubeEmbedId) throw new Error('Video URL is required');
     if (!this.props.documentsURLs) throw new Error('Documents URLs are required');
     if (!this.props.order) throw new Error('Order is required');
-    // if (!this.props.module) throw new Error('Module is required');
+    // if (!this.props.module) throw new Error('Module is required')
   }
 
   public getAllPropsCopy(): ILectureDomain {
@@ -76,7 +75,6 @@ export class LectureDomain {
   public switchActiveStatus(): void {
     this.props.isActive = !this.props.isActive;
   }
-  
 }
 
 export interface ILectureDomain extends ILectureInput {
@@ -84,7 +82,6 @@ export interface ILectureDomain extends ILectureInput {
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date | null;
-
 }
 
 export interface ILectureInput {

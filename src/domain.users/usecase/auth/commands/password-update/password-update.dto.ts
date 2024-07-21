@@ -1,18 +1,17 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsStrongPassword } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsStrongPassword } from 'class-validator';
 
 export class passwordUpdateDto {
-  
   @ApiProperty({
     description: 'Senha atual do usuário',
-    example: '123456',
+    example: '123456'
   })
   @IsString()
   password: string;
 
   @ApiProperty({
     description: 'Nova senha do usuário',
-    example: '654321',
+    example: '654321'
   })
   @IsStrongPassword(
     {

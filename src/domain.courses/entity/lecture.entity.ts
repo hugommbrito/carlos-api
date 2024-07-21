@@ -1,63 +1,70 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Module } from "./module.entity";
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from 'typeorm';
+import { Module } from './module.entity';
 
 @Entity('lecture')
 export class Lecture {
   @PrimaryGeneratedColumn('increment')
-  id: number
+  id: number;
 
   @Column({
     type: 'varchar',
     length: 50,
     nullable: false
   })
-  name: string
+  name: string;
 
   @Column({
     type: 'varchar',
     length: 800,
     nullable: true
   })
-  description: string
+  description: string;
 
   @Column({
     type: 'varchar',
     length: 3500,
     nullable: false
   })
-  youtubeEmbedId: string
+  youtubeEmbedId: string;
 
   @Column({
     type: 'varchar',
     nullable: true,
     default: [],
-    array: true,
+    array: true
   })
-  documentsURLs: string[]
+  documentsURLs: string[];
 
   @Column({
     type: 'int',
     nullable: false
   })
-  order: number
+  order: number;
 
   @Column({
     type: 'boolean',
     nullable: false,
     default: true
   })
-  isActive: boolean
+  isActive: boolean;
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt: Date;
 
   @DeleteDateColumn()
-  deletedAt: Date
+  deletedAt: Date;
 
   @ManyToOne(() => Module, (module) => module.lectures)
-  module: Module
-
+  module: Module;
 }

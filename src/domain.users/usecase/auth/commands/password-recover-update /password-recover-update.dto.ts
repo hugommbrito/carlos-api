@@ -1,10 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsStrongPassword } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsStrongPassword } from 'class-validator';
 
 export class passwordRecoverUpdateDto {
   @ApiProperty({
     description: 'Nova senha do usuário',
-    example: '654321',
+    example: '654321'
   })
   @IsStrongPassword(
     {

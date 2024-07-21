@@ -15,18 +15,8 @@ import { Lecture } from './entity/lecture.entity';
 import { Module as ModuleEntity } from './entity/module.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      Course,
-      ModuleEntity,
-      Lecture
-    ])
-  ],
-  controllers: [
-    CourseController,
-    ModuleController,
-    LectureController
-  ],
+  imports: [TypeOrmModule.forFeature([Course, ModuleEntity, Lecture])],
+  controllers: [CourseController, ModuleController, LectureController],
   providers: [
     CourseService,
     ModuleService,

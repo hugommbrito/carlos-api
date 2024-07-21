@@ -21,32 +21,21 @@ export class LectureService {
   async findAll(): Promise<ILectureDomain[]> {
     const lectureDomainList = await this.lectureRepository.findAll();
     if (!lectureDomainList)
-      throw new NotFoundException(
-        {},
-        { description: 'No lectures found', cause: 'lecture-service' }
-      );
+      throw new NotFoundException({}, { description: 'No lectures found', cause: 'lecture-service' });
 
     return lectureDomainList.map((lecture) => LectureMapper.EntityOrDomainToReturn(lecture));
   }
 
   async findById(id: number): Promise<ILectureDomain> {
     const lectureDomain = await this.lectureRepository.findById(id);
-    if (!lectureDomain)
-      throw new NotFoundException(
-        {},
-        { description: 'Lecture not found', cause: 'lecture-service' }
-      );
+    if (!lectureDomain) throw new NotFoundException({}, { description: 'Lecture not found', cause: 'lecture-service' });
 
     return LectureMapper.EntityOrDomainToReturn(lectureDomain);
   }
 
   async update(id: number, data: Partial<ILectureInput>): Promise<ILectureDomain> {
     const lectureDomain = await this.lectureRepository.findById(id);
-    if (!lectureDomain)
-      throw new NotFoundException(
-        {},
-        { description: 'Lecture not found', cause: 'lecture-service' }
-      );
+    if (!lectureDomain) throw new NotFoundException({}, { description: 'Lecture not found', cause: 'lecture-service' });
 
     lectureDomain.updateSelf(data);
 
@@ -59,4 +48,3 @@ export class LectureService {
     await this.lectureRepository.remove(id);
   }
 }
-

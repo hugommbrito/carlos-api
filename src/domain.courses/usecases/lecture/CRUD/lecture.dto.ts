@@ -8,7 +8,7 @@ export class CreateLectureDto {
     example: 'Introdução ao Fitness'
   })
   @IsString()
-  name: string
+  name: string;
 
   @ApiProperty({
     description: 'Descrição da palestra',
@@ -16,39 +16,39 @@ export class CreateLectureDto {
   })
   @IsString()
   @IsOptional()
-  description?: string
+  description?: string;
 
   @ApiProperty({
     description: 'URL do vídeo da palestra',
     example: 'https://www.youtube.com/watch?v=12345'
   })
   @IsString()
-  youtubeEmbedId: string
+  youtubeEmbedId: string;
 
   @ApiProperty({
     description: 'Lista de URLs dos documentos relacionados à palestra',
     example: ['https://url-doc1.com', 'https://url-doc2.com']
   })
   @IsArray()
-  @IsString({each: true})
-  documentsURLs: string[]
+  @IsString({ each: true })
+  documentsURLs: string[];
 
   @ApiProperty({
     description: 'Ordem de exibição da palestra',
     example: 1
   })
-  @IsNumber({maxDecimalPlaces: 0, allowNaN: false, allowInfinity: false})
+  @IsNumber({ maxDecimalPlaces: 0, allowNaN: false, allowInfinity: false })
   @IsPositive()
-  order: number
+  order: number;
 
   @ApiProperty({
     description: 'Se a palestra está ativa ou não',
     example: true,
-    default: true,
+    default: true
   })
   @IsBoolean()
   @IsOptional()
-  isActive?: boolean
+  isActive?: boolean;
 
   @ApiProperty({
     description: 'ID do módulo ao qual a palestra pertence',
@@ -56,7 +56,7 @@ export class CreateLectureDto {
   })
   @IsNumber()
   @IsPositive()
-  moduleId: number
+  moduleId: number;
 }
 
 export class UpdateLectureDto extends PartialType(CreateLectureDto) {}

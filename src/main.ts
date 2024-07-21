@@ -20,7 +20,7 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Plataforma Carlos Ferreira Team - API')
     .setDescription('Plataforma de gerenciamento de alunos e treinos da equipe Carlos Ferreira Team')
-    
+
     .addTag('Usuários', 'Gerencia os usuários da plataforma')
     .addTag('Autenticação')
     // .addTag('Opções de Recompensa', 'Gerencia os possíveis canais para atribuir pontos ao usuário')

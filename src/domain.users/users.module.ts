@@ -17,17 +17,12 @@ import { PasswordUpdateController } from './usecase/auth/commands/password-updat
 import { PasswordRecoverUpdateUseCase } from './usecase/auth/commands/password-recover-update /password-recover-update.usecase';
 import { PasswordRecoverUpdateController } from './usecase/auth/commands/password-recover-update /password-recover-update.controller';
 
-const userUseCases = [
-  LoginUseCase,
-  PasswordUpdateUseCase,
-  RequestRecoverEmailUsecase,
-  PasswordRecoverUpdateUseCase,
-];
+const userUseCases = [LoginUseCase, PasswordUpdateUseCase, RequestRecoverEmailUsecase, PasswordRecoverUpdateUseCase];
 const userControllers = [
   LoginController,
   PasswordUpdateController,
   PasswordRecoverUpdateController,
-  RequestRecoverEmailController,
+  RequestRecoverEmailController
 ];
 
 @Module({

@@ -1,6 +1,5 @@
-import { IModuleDomain, ModuleDomain } from "../domains/module.domain";
-import { Module } from "../entity/module.entity";
-
+import { IModuleDomain, ModuleDomain } from '../domains/module.domain';
+import { Module } from '../entity/module.entity';
 
 export class ModuleMapper {
   static EntityToDomain(moduleEntity: Module): ModuleDomain {
@@ -11,9 +10,7 @@ export class ModuleMapper {
     return { ...moduleDomain.getAllPropsCopy() };
   }
 
-  static EntityOrDomainToReturn(
-    moduleEntityOrDomain: Module | ModuleDomain | IModuleDomain
-  ): IModuleDomain {
+  static EntityOrDomainToReturn(moduleEntityOrDomain: Module | ModuleDomain | IModuleDomain): IModuleDomain {
     if (moduleEntityOrDomain instanceof ModuleDomain) {
       return moduleEntityOrDomain.getAllPropsCopy();
     }

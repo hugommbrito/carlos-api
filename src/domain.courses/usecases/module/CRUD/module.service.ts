@@ -21,10 +21,7 @@ export class ModuleService {
   async findAll(): Promise<IModuleDomain[]> {
     const moduleDomainList = await this.moduleRepository.findAll();
     if (!moduleDomainList)
-      throw new NotFoundException(
-        {},
-        { description: 'Nenhum Módulo de Curso encontrado', cause: 'module.service' }
-      );
+      throw new NotFoundException({}, { description: 'Nenhum Módulo de Curso encontrado', cause: 'module.service' });
 
     return moduleDomainList.map((module) => ModuleMapper.EntityOrDomainToReturn(module));
   }
@@ -32,10 +29,7 @@ export class ModuleService {
   async findById(id: number): Promise<IModuleDomain> {
     const moduleDomain = await this.moduleRepository.findById(id);
     if (!moduleDomain)
-      throw new NotFoundException(
-        {},
-        { description: 'Módulo de Curso não encontrado', cause: 'module.service' }
-      );
+      throw new NotFoundException({}, { description: 'Módulo de Curso não encontrado', cause: 'module.service' });
 
     return ModuleMapper.EntityOrDomainToReturn(moduleDomain);
   }
@@ -43,10 +37,7 @@ export class ModuleService {
   async update(id: number, data: Partial<IModuleInput>): Promise<IModuleDomain> {
     const moduleDomain = await this.moduleRepository.findById(id);
     if (!moduleDomain)
-      throw new NotFoundException(
-        {},
-        { description: 'Módulo de Curso não encontrado', cause: 'module.service' }
-      );
+      throw new NotFoundException({}, { description: 'Módulo de Curso não encontrado', cause: 'module.service' });
 
     moduleDomain.updateSelf(data);
 

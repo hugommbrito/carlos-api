@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common'
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -9,13 +9,13 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiTags
-} from '@nestjs/swagger';
-import { AuthGuard } from 'src/domain.users/auth/guards/auth.guard';
-import { RoleGuard } from 'src/domain.users/auth/guards/roles.guard';
-import { Roles } from 'src/domain.users/auth/rolesConfig/role.decorator';
-import { Role } from 'src/domain.users/auth/rolesConfig/role.enum';
-import { CourseService } from './course.service';
-import { CreateCourseDto, UpdateCourseDto } from './course.dto';
+} from '@nestjs/swagger'
+import { AuthGuard } from 'src/domain.users/auth/guards/auth.guard'
+import { RoleGuard } from 'src/domain.users/auth/guards/roles.guard'
+import { Roles } from 'src/domain.users/auth/rolesConfig/role.decorator'
+import { Role } from 'src/domain.users/auth/rolesConfig/role.enum'
+import { CourseService } from './course.service'
+import { CreateCourseDto, UpdateCourseDto } from './course.dto'
 
 @Controller('course')
 @ApiTags('Curso')
@@ -34,9 +34,9 @@ export class CourseController {
     @Body()
     data: CreateCourseDto
   ) {
-    const isActive = data.isActive ?? true;
-    const result = await this.courseService.create({ ...data, isActive });
-    return { message: `Curso ${result.name} criado com sucesso!`, course: result };
+    const isActive = data.isActive ?? true
+    const result = await this.courseService.create({ ...data, isActive })
+    return { message: `Curso ${result.name} criado com sucesso!`, course: result }
   }
 
   @ApiOperation({ summary: 'Listar todos os cursos' })
@@ -46,8 +46,8 @@ export class CourseController {
   @UseGuards(AuthGuard)
   @Get('')
   async findAll() {
-    const result = await this.courseService.findAll();
-    return result;
+    const result = await this.courseService.findAll()
+    return result
   }
 
   @ApiOperation({ summary: 'Buscar um curso pelo ID' })
@@ -61,8 +61,8 @@ export class CourseController {
     @Param('id')
     id: number
   ) {
-    const result = await this.courseService.findById(id);
-    return result;
+    const result = await this.courseService.findById(id)
+    return result
   }
 
   @ApiOperation({ summary: 'Atualizar um curso pelo ID' })
@@ -80,8 +80,8 @@ export class CourseController {
     @Body()
     data: UpdateCourseDto
   ) {
-    const result = await this.courseService.update(id, data);
-    return { message: `Curso ${result.name} atualizado com sucesso!`, course: result };
+    const result = await this.courseService.update(id, data)
+    return { message: `Curso ${result.name} atualizado com sucesso!`, course: result }
   }
 
   @ApiOperation({ summary: 'Remover um curso pelo ID' })
@@ -96,6 +96,6 @@ export class CourseController {
     @Param('id')
     id: number
   ) {
-    await this.courseService.remove(id);
+    await this.courseService.remove(id)
   }
 }

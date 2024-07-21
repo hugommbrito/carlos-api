@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common'
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -9,13 +9,13 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiTags
-} from '@nestjs/swagger';
-import { AuthGuard } from 'src/domain.users/auth/guards/auth.guard';
-import { RoleGuard } from 'src/domain.users/auth/guards/roles.guard';
-import { Roles } from 'src/domain.users/auth/rolesConfig/role.decorator';
-import { Role } from 'src/domain.users/auth/rolesConfig/role.enum';
-import { ModuleService } from './module.service';
-import { CreateModuleDto, UpdateModuleDto } from './module.dto';
+} from '@nestjs/swagger'
+import { AuthGuard } from 'src/domain.users/auth/guards/auth.guard'
+import { RoleGuard } from 'src/domain.users/auth/guards/roles.guard'
+import { Roles } from 'src/domain.users/auth/rolesConfig/role.decorator'
+import { Role } from 'src/domain.users/auth/rolesConfig/role.enum'
+import { ModuleService } from './module.service'
+import { CreateModuleDto, UpdateModuleDto } from './module.dto'
 
 @Controller('module')
 @ApiTags('Módulo')
@@ -34,9 +34,9 @@ export class ModuleController {
     @Body()
     data: CreateModuleDto
   ) {
-    const isActive = data.isActive ?? true;
-    const result = await this.moduleService.create({ ...data, isActive });
-    return { message: `Módulo de curso ${result.name} criado com sucesso!`, module: result };
+    const isActive = data.isActive ?? true
+    const result = await this.moduleService.create({ ...data, isActive })
+    return { message: `Módulo de curso ${result.name} criado com sucesso!`, module: result }
   }
 
   @ApiOperation({ summary: 'Listar todos os módulos de curso' })
@@ -46,8 +46,8 @@ export class ModuleController {
   @UseGuards(AuthGuard)
   @Get('')
   async findAll() {
-    const result = await this.moduleService.findAll();
-    return result;
+    const result = await this.moduleService.findAll()
+    return result
   }
 
   @ApiOperation({ summary: 'Buscar um módulo de curso pelo ID' })
@@ -61,8 +61,8 @@ export class ModuleController {
     @Param('id')
     id: number
   ) {
-    const result = await this.moduleService.findById(id);
-    return result;
+    const result = await this.moduleService.findById(id)
+    return result
   }
 
   @ApiOperation({ summary: 'Atualizar um módulo de curso pelo ID' })
@@ -80,8 +80,8 @@ export class ModuleController {
     @Body()
     data: UpdateModuleDto
   ) {
-    const result = await this.moduleService.update(id, data);
-    return { message: `Módulo de curso ${result.name} atualizado com sucesso!`, module: result };
+    const result = await this.moduleService.update(id, data)
+    return { message: `Módulo de curso ${result.name} atualizado com sucesso!`, module: result }
   }
 
   @ApiOperation({ summary: 'Remover um módulo de curso pelo ID' })
@@ -96,6 +96,6 @@ export class ModuleController {
     @Param('id')
     id: number
   ) {
-    await this.moduleService.remove(id);
+    await this.moduleService.remove(id)
   }
 }

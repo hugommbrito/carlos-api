@@ -1,6 +1,6 @@
-import { MethodNotAllowedException } from "@nestjs/common";
-import { Module } from "../entity/module.entity";
-import { IModuleDomain } from "./module.domain";
+import { MethodNotAllowedException } from '@nestjs/common';
+import { Module } from '../entity/module.entity';
+import { IModuleDomain } from './module.domain';
 
 export class CourseDomain {
   private readonly props: ICourseDomain;
@@ -35,18 +35,18 @@ export class CourseDomain {
         propKey === 'modules' ||
         propKey === 'order' ||
         propKey === 'isActive'
-      ){
+      ) {
         throw new MethodNotAllowedException(
           {},
           {
             description: `${propKey} não pode ser atualizado por este método`,
             cause: 'course.domain-updateSelf'
           }
-        )
+        );
       }
       this.props[propKey] = props[propKey];
-      this.validate()
-    })
+      this.validate();
+    });
   }
 
   private validate(): void {
@@ -67,7 +67,6 @@ export class CourseDomain {
   public switchActiveStatus(): void {
     this.props.isActive = !this.props.isActive;
   }
-  
 }
 
 export interface ICourseDomain extends ICourseInput {
