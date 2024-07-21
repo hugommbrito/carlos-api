@@ -9,8 +9,8 @@ import { UsersController } from './usecase/CRUD/users.controller';
 import { UsersService } from './usecase/CRUD/users.service';
 import { LocalStrategy } from './auth/strategy/local.strategy';
 import { PassportModule } from '@nestjs/passport';
-import { RequestRecoverEmailUsecase } from './usecase/auth/commands/password-recover/request-recover-email.usecase';
-import { RequestRecoverEmailController } from './usecase/auth/commands/password-recover/request-recover-email.controller';
+import { RequestRecoverEmailUsecase } from './usecase/auth/commands/password-recover-email/request-recover-email.usecase';
+import { RequestRecoverEmailController } from './usecase/auth/commands/password-recover-email/request-recover-email.controller';
 import { emailProvider } from 'src/providers/nodemailer/mailer.provider';
 
 const userUseCases = [LoginUseCase, RequestRecoverEmailUsecase];
