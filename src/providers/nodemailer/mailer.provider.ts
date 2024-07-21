@@ -1,4 +1,5 @@
 import { BadRequestException } from '@nestjs/common';
+import { STATUS_CODES } from 'http';
 import * as nodemailer from 'nodemailer'
 import SMTPTransport from 'nodemailer/lib/smtp-transport'
 
@@ -21,6 +22,8 @@ export class emailProvider {
       }
     }
 
+    // console.log(transportInfo);
+
     const transport = nodemailer.createTransport(transportInfo)
 
     const emailInfo = {
@@ -31,11 +34,15 @@ export class emailProvider {
       html: data.html
     }
 
-    await transport.sendEmail(emailInfo, (err, _) => {
-      if (err) {
-        throw new BadRequestException({}, { description: 'Erro ao enviar email', cause: 'nodemailer-sendEmail' })
-      }
-    })
+    // console.log(emailInfo);
+
+
+    try {
+      await transport.sendMail(emailInfo);
+    } catch (error) {
+      console.error(error);
+      throw new BadRequestException({}, { description: 'Erro ao enviar email', cause: 'provider-nodemailer-sendEmail' });
+    }
 
     return true
   }
