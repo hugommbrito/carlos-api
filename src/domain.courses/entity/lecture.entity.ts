@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { Module } from './module.entity';
+import { User } from 'src/domain.users/entities/user.entity';
 
 @Entity('lecture')
 export class Lecture {
@@ -56,6 +58,12 @@ export class Lecture {
   })
   isActive: boolean;
 
+  @ManyToOne(() => Module, (module) => module.lectures)
+  module: Module
+
+  @ManyToMany(() => User, (user) => user.watchedLectures)
+  watchedBy: User[]
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -64,7 +72,4 @@ export class Lecture {
 
   @DeleteDateColumn()
   deletedAt: Date;
-
-  @ManyToOne(() => Module, (module) => module.lectures)
-  module: Module;
 }

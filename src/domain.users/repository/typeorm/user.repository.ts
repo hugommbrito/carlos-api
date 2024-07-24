@@ -20,9 +20,11 @@ export class UserRepository implements UserRepositoryInterface {
     private readonly userRepository: Repository<User>
   ) {}
 
-  async create(user: UserDomain): Promise<UserDomain> {
+  async saveCreate(user: UserDomain): Promise<UserDomain> {
     try {
       const userProps = UserMapper.DomainToPersistence(user);
+
+      userProps.watchedLectures = userProps.watchedLectures || []
 
       const userEntity = this.userRepository.create(userProps);
       const userPersistedOrError = await this.userRepository.save(userEntity);
@@ -53,6 +55,8 @@ export class UserRepository implements UserRepositoryInterface {
       const userProps = UserMapper.DomainToPersistence(user);
 
       const updatedUserOrError = await this.userRepository.update(id, userProps);
+      // const userEntity = await this.userRepository.create(userProps);
+      // const updatedUserOrError = await this.userRepository.save(userEntity);
       if (updatedUserOrError instanceof Error)
         throw new InternalServerErrorException(
           {},
@@ -72,9 +76,16 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async findById(id: string): Promise<UserDomain> {
-    const user = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOne({ 
+      where: {id},
+      relations: ['watchedLectures'],
+      select: {
+        watchedLectures: {
+          id: true
+        }
+      } });
     if (!user) return null;
-
+    console.log(user);
     return UserMapper.EntityToDomain(user);
   }
 
@@ -86,7 +97,9 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async findAll(): Promise<UserDomain[]> {
-    const users = await this.userRepository.find();
+    const users = await this.userRepository.find({
+      relations: ['watchedLectures']
+    });
     if (!users) return null;
 
     return users.map((user) => UserMapper.EntityToDomain(user));

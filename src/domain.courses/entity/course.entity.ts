@@ -56,7 +56,7 @@ export class Course {
   coverImgUrl: string;
 
   @OneToMany(() => Module, (module) => module.course)
-  modules: Module[];
+  modules: Module[]
 
   @CreateDateColumn()
   createdAt: Date;

@@ -1,9 +1,12 @@
+import { Lecture } from 'src/domain.courses/entity/lecture.entity';
 import { RewardRegister } from 'src/domain.rewards/entity/reward-register.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -63,16 +66,20 @@ export class User {
     nullable: false,
     default: true
   })
-  isActive: boolean;
+  isActive: boolean
 
   @OneToMany(() => RewardRegister, (rewardRegister) => rewardRegister.user)
-  rewardRegisters: RewardRegister[];
+  rewardRegisters: RewardRegister[]
+
+  @ManyToMany(() => Lecture, (lecture) => lecture.watchedBy)
+  @JoinTable()
+  watchedLectures: Lecture[]
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt: Date
 
   @DeleteDateColumn()
   deletedAt?: Date | null;

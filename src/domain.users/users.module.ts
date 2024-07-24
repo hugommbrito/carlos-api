@@ -1,37 +1,53 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { emailProvider } from 'src/providers/nodemailer/mailer.provider';
+import { LocalStrategy } from './auth/strategy/local.strategy';
 import { User } from './entities/user.entity';
 import { UserRepository } from './repository/typeorm/user.repository';
-import { LoginController } from './usecase/auth/commands/login/login.controller';
-import { LoginUseCase } from './usecase/auth/commands/login/login.usecase';
 import { UsersController } from './usecase/CRUD/users.controller';
 import { UsersService } from './usecase/CRUD/users.service';
-import { LocalStrategy } from './auth/strategy/local.strategy';
-import { PassportModule } from '@nestjs/passport';
-import { RequestRecoverEmailUsecase } from './usecase/auth/commands/password-recover-email/request-recover-email.usecase';
+import { LoginController } from './usecase/auth/commands/login/login.controller';
+import { LoginUseCase } from './usecase/auth/commands/login/login.usecase';
 import { RequestRecoverEmailController } from './usecase/auth/commands/password-recover-email/request-recover-email.controller';
-import { emailProvider } from 'src/providers/nodemailer/mailer.provider';
-import { PasswordUpdateUseCase } from './usecase/auth/commands/password-update/password-update.usecase';
-import { PasswordUpdateController } from './usecase/auth/commands/password-update/password-update.controller';
-import { PasswordRecoverUpdateUseCase } from './usecase/auth/commands/password-recover-update /password-recover-update.usecase';
+import { RequestRecoverEmailUsecase } from './usecase/auth/commands/password-recover-email/request-recover-email.usecase';
 import { PasswordRecoverUpdateController } from './usecase/auth/commands/password-recover-update /password-recover-update.controller';
+import { PasswordRecoverUpdateUseCase } from './usecase/auth/commands/password-recover-update /password-recover-update.usecase';
+import { PasswordUpdateController } from './usecase/auth/commands/password-update/password-update.controller';
+import { PasswordUpdateUseCase } from './usecase/auth/commands/password-update/password-update.usecase';
+import { WatchLectureUseCase } from './usecase/commands/watch-lecture/watch-lecture.usecase';
+import { WatchLectureController } from './usecase/commands/watch-lecture/whatch-lecture.controller';
+import { LectureDao } from './dao/typeorm/lecture.dao';
+import { LectureRepository } from 'src/domain.courses/repository/typeorm/lecture.repository';
+import { CoursesModule } from 'src/domain.courses/courses.module';
+import { Lecture } from 'src/domain.courses/entity/lecture.entity';
+import { Module as ModuleEntity } from 'src/domain.courses/entity/module.entity';
 
-const userUseCases = [LoginUseCase, PasswordUpdateUseCase, RequestRecoverEmailUsecase, PasswordRecoverUpdateUseCase];
+const userUseCases = [
+  LoginUseCase,
+  PasswordUpdateUseCase,
+  RequestRecoverEmailUsecase,
+  PasswordRecoverUpdateUseCase,
+  WatchLectureUseCase,
+]
+
 const userControllers = [
   LoginController,
   PasswordUpdateController,
   PasswordRecoverUpdateController,
-  RequestRecoverEmailController
+  RequestRecoverEmailController,
+  WatchLectureController
 ];
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Lecture, ModuleEntity]),
     JwtModule.register({
       global: true
     }),
-    PassportModule
+    PassportModule,
+    CoursesModule,
   ],
   providers: [
     UsersService,
@@ -39,10 +55,14 @@ const userControllers = [
       provide: 'user_repository',
       useClass: UserRepository
     },
+    {
+      provide: 'lecture_dao',
+      useClass: LectureDao
+    },
     LocalStrategy,
     emailProvider,
     ...userUseCases
   ],
-  controllers: [...userControllers, UsersController]
+  controllers: [...userControllers, UsersController],
 })
 export class UsersModule {}

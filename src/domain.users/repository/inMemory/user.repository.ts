@@ -7,7 +7,7 @@ import { UserMapper } from 'src/domain.users/mappers/user.mappers';
 export class UserRepository implements UserRepositoryInterface {
   private userDB: IUserDomain[] = [];
 
-  async create(user: UserDomain): Promise<UserDomain> {
+  async saveCreate(user: UserDomain): Promise<UserDomain> {
     // METODO PARA CRIAR USUARIO NO DB
     return;
   }

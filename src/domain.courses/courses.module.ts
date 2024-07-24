@@ -32,7 +32,11 @@ import { Module as ModuleEntity } from './entity/module.entity';
     {
       provide: 'lecture_repository',
       useClass: LectureRepository
-    }
+    },
+    LectureRepository
+  ],
+  exports: [
+    LectureRepository
   ]
 })
 export class CoursesModule {}

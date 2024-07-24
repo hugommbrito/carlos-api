@@ -13,8 +13,9 @@ export class UsersService {
   async create(data: IUserDomainInput): Promise<IUserDomainReturn> {
     const userDomain = UserDomain.create(data);
     userDomain.encryptPassword();
+    
 
-    const userPersisted = await this.userRepository.create(userDomain);
+    const userPersisted = await this.userRepository.saveCreate(userDomain);
 
     return UserMapper.EntityOrDomainToReturn(userPersisted);
   }
@@ -38,6 +39,7 @@ export class UsersService {
     const userDomain = await this.userRepository.findById(id);
     if (!userDomain) throw new NotFoundException({}, { description: 'Usuário não encontrado', cause: 'users.service' });
 
+    
     if (data.password) userDomain.encryptPassword();
     userDomain.updateSelf(data);
 
