@@ -1,14 +1,17 @@
 import { Controller, Get, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
-import { User } from './users/entities/user.entity';
+import { UsersModule } from './domain.users/users.module';
+import { User } from './domain.users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
-import { RoleGuard, SelfOrRoleGuard } from './users/auth/guards/roles.guard';
-import { RewardsModule } from './rewards/rewards.module';
-import { RewardOption } from './rewards/entity/reward-option.entity';
+import { RoleGuard, SelfOrRoleGuard } from './domain.users/auth/guards/roles.guard';
+import { RewardsModule } from './domain.rewards/rewards.module';
+import { RewardOption } from './domain.rewards/entity/reward-option.entity';
 import { ApiTags } from '@nestjs/swagger';
-import { RewardRegister } from './rewards/entity/reward-register.entity';
-import { CoursesModule } from './courses/courses.module';
+import { RewardRegister } from './domain.rewards/entity/reward-register.entity';
+import { CoursesModule } from './domain.courses/courses.module';
+import { Course } from './domain.courses/entity/course.entity';
+import { Module as ModuleEntity } from './domain.courses/entity/module.entity';
+import { Lecture } from './domain.courses/entity/lecture.entity';
 
 @Controller('')
 class DeployMessageController {
@@ -32,14 +35,15 @@ class DeployMessageController {
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      entities: [User, RewardOption, RewardRegister],
+      database: process.env.DATABASE_NAME,
+      entities: [User, RewardOption, RewardRegister, Course, ModuleEntity, Lecture],
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV === 'development'
     }),
     // TypeOrmModule.forFeature([User, RewardOption]),
     UsersModule,
     // RewardsModule,
-    CoursesModule,
+    CoursesModule
   ],
   providers: [
     {
