@@ -1,9 +1,9 @@
 import { BadRequestException, Inject, NotFoundException } from '@nestjs/common';
-import { UserRepositoryInterface } from 'src/domain.users/repository/user.repository.interface';
+import { UserRepositoryInterface } from '../../../../../domain.users/repository/user.repository.interface';
 import { passwordRecoverUpdateDto } from './password-recover-update.dto';
-import { UserDomain } from 'src/domain.users/domains/user.domain';
+import { UserDomain } from '../../../../../domain.users/domains/user.domain';
 import { NotFoundError } from 'rxjs';
-import { UserMapper } from 'src/domain.users/mappers/user.mappers';
+import { UserMapper } from '../../../../../domain.users/mappers/user.mappers';
 import { JwtService } from '@nestjs/jwt';
 
 export class PasswordRecoverUpdateUseCase {

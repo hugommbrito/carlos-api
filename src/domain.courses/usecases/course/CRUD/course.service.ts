@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CourseRepositoryInterface } from '../../../repository/course.repository.interface';
 import { ICourseDomain, ICourseInput, CourseDomain } from '../../../domains/course.domain';
 import { CourseMapper } from '../../../mappers/course.mappers';
-import { CourseRepository } from 'src/domain.courses/repository/typeorm/course.repository';
+import { CourseRepository } from '../../../../domain.courses/repository/typeorm/course.repository';
 
 @Injectable()
 export class CourseService {

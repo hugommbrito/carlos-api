@@ -1,4 +1,4 @@
-import { User } from 'src/domain.users/entities/user.entity';
+import { User } from '../../domain.users/entities/user.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { RewardOption } from './reward-option.entity';
 

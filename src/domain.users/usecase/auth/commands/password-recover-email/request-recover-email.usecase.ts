@@ -1,8 +1,8 @@
 import { Inject } from '@nestjs/common';
-import { UserRepositoryInterface } from 'src/domain.users/repository/user.repository.interface';
+import { UserRepositoryInterface } from '../../../../../domain.users/repository/user.repository.interface';
 import { RequestRecoverEmailDto } from './request-recover-email.dto';
 import { JwtService } from '@nestjs/jwt';
-import { emailProvider } from 'src/providers/nodemailer/mailer.provider';
+import { emailProvider } from '../../../../../providers/nodemailer/mailer.provider';
 
 export class RequestRecoverEmailUsecase {
   constructor(

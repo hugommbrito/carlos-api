@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto'
 import * as bcrypt from 'bcrypt'
 import { MethodNotAllowedException } from '@nestjs/common'
-import { Lecture } from 'src/domain.courses/entity/lecture.entity'
+import { Lecture } from '../../domain.courses/entity/lecture.entity'
 
 export class UserDomain {
   private readonly props: IUserDomain

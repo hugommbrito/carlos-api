@@ -1,8 +1,8 @@
-import { UserDomain } from 'src/domain.users/domains/user.domain';
+import { UserDomain } from '../../domain.users/domains/user.domain';
 import { IRewardOptionDomain, RewardOptionDomain } from './reward-option.domain';
 import { randomUUID } from 'crypto';
-import { IUserDomain } from 'src/domain.users/domains/user.domain';
-import { User } from 'src/domain.users/entities/user.entity';
+import { IUserDomain } from '../../domain.users/domains/user.domain';
+import { User } from '../../domain.users/entities/user.entity';
 import { RewardOption } from '../entity/reward-option.entity';
 
 export class RewardRegisterDomain {

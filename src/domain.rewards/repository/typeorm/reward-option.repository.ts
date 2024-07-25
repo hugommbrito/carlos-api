@@ -1,10 +1,10 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { RewardOptionRepositoryInterface } from '../reward-option.repository.interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RewardOption } from 'src/domain.rewards/entity/reward-option.entity';
+import { RewardOption } from '../../../domain.rewards/entity/reward-option.entity';
 import { Repository } from 'typeorm';
-import { RewardOptionDomain } from 'src/domain.rewards/domains/reward-option.domain';
-import { RewardOptionMapper } from 'src/domain.rewards/mappers/reward-option.mappers';
+import { RewardOptionDomain } from '../../../domain.rewards/domains/reward-option.domain';
+import { RewardOptionMapper } from '../../../domain.rewards/mappers/reward-option.mappers';
 
 @Injectable()
 export class RewardOptionRepository implements RewardOptionRepositoryInterface {

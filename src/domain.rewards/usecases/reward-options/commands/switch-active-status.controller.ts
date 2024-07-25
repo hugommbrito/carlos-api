@@ -1,12 +1,3 @@
-// import { Body, Controller, Param, Patch, UseGuards } from "@nestjs/common"
-// import { ApiBearerAuth, ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
-// import { SwitchActiveStatusUsecase } from "./switch-active-status.usecase"
-// import { AuthGuard } from "@nestjs/passport"
-// import { RoleGuard } from "src/users/auth/guards/roles.guard"
-// import { Roles } from "src/users/auth/rolesConfig/role.decorator"
-// import { Role } from "src/users/auth/rolesConfig/role.enum"
-// import { UpdateRewardOptionDto } from "../CRUD/reward-option.dto"
-
 import { Controller, Param, Patch, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -17,10 +8,10 @@ import {
   ApiTags
 } from '@nestjs/swagger';
 import { SwitchActiveStatusUsecase } from './switch-active-status.usecase';
-import { Roles } from 'src/domain.users/auth/rolesConfig/role.decorator';
-import { Role } from 'src/domain.users/auth/rolesConfig/role.enum';
-import { AuthGuard } from 'src/domain.users/auth/guards/auth.guard';
-import { RoleGuard } from 'src/domain.users/auth/guards/roles.guard';
+import { Roles } from '../../../../domain.users/auth/rolesConfig/role.decorator';
+import { Role } from '../../../../domain.users/auth/rolesConfig/role.enum';
+import { AuthGuard } from '../../../../domain.users/auth/guards/auth.guard';
+import { RoleGuard } from '../../../../domain.users/auth/guards/roles.guard';
 
 @Controller('reward-options/switch-active-status')
 @ApiTags('Opções de Recompensa')

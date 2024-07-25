@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 import { PasswordRecoverUpdateUseCase } from './password-recover-update.usecase';
 import { passwordRecoverUpdateDto } from './password-recover-update.dto';
-import { AuthGuard } from 'src/domain.users/auth/guards/auth.guard';
+import { AuthGuard } from '../../../../../domain.users/auth/guards/auth.guard';
 
 @Controller('auth/password-recover-update')
 @ApiTags('Autenticação')

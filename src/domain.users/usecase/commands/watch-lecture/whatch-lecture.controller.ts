@@ -1,7 +1,7 @@
 import { Controller, Param, Post, Req, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { WatchLectureUseCase } from "./watch-lecture.usecase";
-import { AuthGuard } from "src/domain.users/auth/guards/auth.guard";
+import { AuthGuard } from "../../../../domain.users/auth/guards/auth.guard";
 
 
 @Controller('users/self/watch-lecture')

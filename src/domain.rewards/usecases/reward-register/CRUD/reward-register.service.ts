@@ -3,8 +3,8 @@ import {
   IRewardRegisterDomain,
   IRewardRegisterInput,
   RewardRegisterDomain
-} from 'src/domain.rewards/domains/reward-register.domain';
-import { RewardRegisterRepositoryInterface } from 'src/domain.rewards/repository/reward-register.repository.interface';
+} from '../../../../domain.rewards/domains/reward-register.domain';
+import { RewardRegisterRepositoryInterface } from '../../../../domain.rewards/repository/reward-register.repository.interface';
 
 @Injectable()
 export class RewardRegisterService {

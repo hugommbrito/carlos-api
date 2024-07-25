@@ -1,5 +1,5 @@
-import { Lecture } from 'src/domain.courses/entity/lecture.entity';
-import { RewardRegister } from 'src/domain.rewards/entity/reward-register.entity';
+import { Lecture } from '../../domain.courses/entity/lecture.entity';
+import { RewardRegister } from '../../domain.rewards/entity/reward-register.entity';
 import {
   Column,
   CreateDateColumn,

@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { IRewardOptionDomain } from 'src/domain.rewards/domains/reward-option.domain';
-import { RewardOptionMapper } from 'src/domain.rewards/mappers/reward-option.mappers';
-import { RewardOptionRepositoryInterface } from 'src/domain.rewards/repository/reward-option.repository.interface';
+import { IRewardOptionDomain } from '../../../../domain.rewards/domains/reward-option.domain';
+import { RewardOptionMapper } from '../../../../domain.rewards/mappers/reward-option.mappers';
+import { RewardOptionRepositoryInterface } from '../../../../domain.rewards/repository/reward-option.repository.interface';
 
 @Injectable()
 export class SwitchActiveStatusUsecase {

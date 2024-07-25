@@ -2,9 +2,9 @@ import { Injectable, InternalServerErrorException, NotFoundException } from '@ne
 import { CourseRepositoryInterface } from '../course.repository.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Course } from 'src/domain.courses/entity/course.entity';
-import { CourseDomain } from 'src/domain.courses/domains/course.domain';
-import { CourseMapper } from 'src/domain.courses/mappers/course.mappers';
+import { Course } from '../../../domain.courses/entity/course.entity';
+import { CourseDomain } from '../../../domain.courses/domains/course.domain';
+import { CourseMapper } from '../../../domain.courses/mappers/course.mappers';
 
 @Injectable()
 export class CourseRepository implements CourseRepositoryInterface {

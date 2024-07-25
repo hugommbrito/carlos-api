@@ -1,8 +1,8 @@
 import { Injectable, InternalServerErrorException, NotFoundException, NotImplementedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RewardRegisterDomain } from 'src/domain.rewards/domains/reward-register.domain';
-import { RewardRegister } from 'src/domain.rewards/entity/reward-register.entity';
-import { RewardRegisterMapper } from 'src/domain.rewards/mappers/reward-register.mappers';
+import { RewardRegisterDomain } from '../../../domain.rewards/domains/reward-register.domain';
+import { RewardRegister } from '../../../domain.rewards/entity/reward-register.entity';
+import { RewardRegisterMapper } from '../../../domain.rewards/mappers/reward-register.mappers';
 import { Repository } from 'typeorm';
 import { RewardRegisterRepositoryInterface } from '../reward-register.repository.interface';
 

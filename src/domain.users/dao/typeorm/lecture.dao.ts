@@ -1,8 +1,8 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { LectureDaoInterface } from "../lecture.dao.interface";
 import { Repository } from "typeorm";
-import { Lecture } from "src/domain.courses/entity/lecture.entity";
-import { LectureMapper } from "src/domain.courses/mappers/lecture.mappers";
+import { Lecture } from "../../../domain.courses/entity/lecture.entity";
+import { LectureMapper } from "../../../domain.courses/mappers/lecture.mappers";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()

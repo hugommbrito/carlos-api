@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { emailProvider } from 'src/providers/nodemailer/mailer.provider';
+import { emailProvider } from '../providers/nodemailer/mailer.provider';
 import { LocalStrategy } from './auth/strategy/local.strategy';
 import { User } from './entities/user.entity';
 import { UserRepository } from './repository/typeorm/user.repository';
@@ -19,10 +19,10 @@ import { PasswordUpdateUseCase } from './usecase/auth/commands/password-update/p
 import { WatchLectureUseCase } from './usecase/commands/watch-lecture/watch-lecture.usecase';
 import { WatchLectureController } from './usecase/commands/watch-lecture/whatch-lecture.controller';
 import { LectureDao } from './dao/typeorm/lecture.dao';
-import { LectureRepository } from 'src/domain.courses/repository/typeorm/lecture.repository';
-import { CoursesModule } from 'src/domain.courses/courses.module';
-import { Lecture } from 'src/domain.courses/entity/lecture.entity';
-import { Module as ModuleEntity } from 'src/domain.courses/entity/module.entity';
+import { LectureRepository } from '../domain.courses/repository/typeorm/lecture.repository';
+import { CoursesModule } from '../domain.courses/courses.module';
+import { Lecture } from '../domain.courses/entity/lecture.entity';
+import { Module as ModuleEntity } from '../domain.courses/entity/module.entity';
 
 const userUseCases = [
   LoginUseCase,

@@ -1,8 +1,8 @@
 import { Inject, NotFoundException } from "@nestjs/common";
-import { LectureRepositoryInterface } from "src/domain.courses/repository/lecture.repository.interface";
-import { LectureDaoInterface } from "src/domain.users/dao/lecture.dao.interface";
-import { LectureDao } from "src/domain.users/dao/typeorm/lecture.dao";
-import { UserRepositoryInterface } from "src/domain.users/repository/user.repository.interface";
+import { LectureRepositoryInterface } from "../../../../domain.courses/repository/lecture.repository.interface";
+import { LectureDaoInterface } from "../../../../domain.users/dao/lecture.dao.interface";
+import { LectureDao } from "../../../../domain.users/dao/typeorm/lecture.dao";
+import { UserRepositoryInterface } from "../../../../domain.users/repository/user.repository.interface";
 
 export class WatchLectureUseCase {
   constructor(

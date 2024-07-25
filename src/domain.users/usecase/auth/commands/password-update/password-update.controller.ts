@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 import { PasswordUpdateUseCase } from './password-update.usecase';
 import { passwordUpdateDto } from './password-update.dto';
-import { AuthGuard } from 'src/domain.users/auth/guards/auth.guard';
+import { AuthGuard } from '../../../../../domain.users/auth/guards/auth.guard';
 
 @Controller('auth/password-update')
 @ApiTags('Autenticação')
