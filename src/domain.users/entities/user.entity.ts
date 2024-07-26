@@ -68,8 +68,8 @@ export class User {
   })
   isActive: boolean
 
-  @OneToMany(() => RewardRegister, (rewardRegister) => rewardRegister.user)
-  rewardRegisters: RewardRegister[]
+  // @OneToMany(() => RewardRegister, (rewardRegister) => rewardRegister.user)
+  // rewardRegisters: RewardRegister[]
 
   @ManyToMany(() => Lecture, (lecture) => lecture.watchedBy)
   @JoinTable()

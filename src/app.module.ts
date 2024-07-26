@@ -35,14 +35,11 @@ class DeployMessageController {
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.NODE_ENV === 'development' ? process.env.DATABASE_DEV_URL : process.env.DATABASE_PROD_URL,
-      database: process.env.DATABASE_NAME,
-      entities: [User, RewardOption, RewardRegister, Course, ModuleEntity, Lecture],
+      entities: [User, Course, ModuleEntity, Lecture],
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV === 'development'
     }),
-    // TypeOrmModule.forFeature([User, RewardOption]),
     UsersModule,
-    // RewardsModule,
     CoursesModule
   ],
   providers: [
@@ -54,6 +51,7 @@ class DeployMessageController {
       provide: 'SELF_ROLE_GUARD',
       useClass: SelfOrRoleGuard
     }
-  ]
+  ],
+  controllers: [DeployMessageController]
 })
 export class AppModule {}

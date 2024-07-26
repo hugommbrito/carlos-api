@@ -29,8 +29,8 @@ export class RewardRegister {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.rewardRegisters)
-  user: User;
+  // @ManyToOne(() => User, (user) => user.rewardRegisters)
+  // user: User;
 
   @ManyToOne(() => RewardOption, (rewardOption) => rewardOption.rewardRegisters)
   rewardOption: RewardOption;
