@@ -34,7 +34,7 @@ class DeployMessageController {
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: process.env.NODE_ENV === 'development' ? process.env.DATABASE_DEV_URL : process.env.DATABASE_PROD_URL,
       database: process.env.DATABASE_NAME,
       entities: [User, RewardOption, RewardRegister, Course, ModuleEntity, Lecture],
       autoLoadEntities: true,
