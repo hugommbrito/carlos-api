@@ -1,7 +1,12 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { IUserDomainInput, IUserDomainReturn, UserDomain } from '../../domains/user.domain';
 import { UserMapper } from '../../mappers/user.mappers';
 import { UserRepositoryInterface } from '../../repository/user.repository.interface';
+import * as bcrypt from 'bcrypt';
+
+interface UserInputs extends IUserDomainInput {
+  adminPassword?: string;
+}
 
 @Injectable()
 export class UsersService {
@@ -10,10 +15,17 @@ export class UsersService {
     private readonly userRepository: UserRepositoryInterface
   ) {}
 
-  async create(data: IUserDomainInput): Promise<IUserDomainReturn> {
+  async create(data: UserInputs): Promise<IUserDomainReturn> {
+    if(data.role === 'admin' || data.role === 'staff') {
+      if(!data.adminPassword) throw new BadRequestException({}, { description: 'Senha de administrador necessária para criar usuário com função de admin ou staff', cause: 'users.service' });
+
+      const checkAdminPassowrd: boolean = bcrypt.compareSync(data.adminPassword, process.env.ADMIN_PASSWORD_HASH)
+
+      if(!checkAdminPassowrd) throw new UnauthorizedException({}, { description: 'Senha de administrador inválida', cause: 'users.service' })
+    }
+
     const userDomain = UserDomain.create(data);
     userDomain.encryptPassword();
-    
 
     const userPersisted = await this.userRepository.saveCreate(userDomain);
 

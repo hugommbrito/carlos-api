@@ -8,6 +8,12 @@ import { DataSource } from "typeorm";
 import {config as dotenvConfig} from 'dotenv'
 dotenvConfig()
 
+// Generate Migration Command:
+// npm run typeorm migration:generate ./src/migrations -- -d ./src/databases/typeorm/data-source.ts
+
+// Run Migration Command:
+// npm run typeorm migration:run -- -d ./src/databases/typeorm/data-source.ts
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
   database: process.env.NODE_ENV === 'development' ?

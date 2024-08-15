@@ -12,6 +12,7 @@ import {
   MaxLength,
   Min,
   MinLength,
+  isString,
   min,
   minLength
 } from 'class-validator';
@@ -89,6 +90,14 @@ export class CreateUserDto {
   @IsIn(['admin', 'staff', 'user'])
   @IsOptional()
   role?: 'admin' | 'staff' | 'user';
+
+  @ApiProperty({
+    example: 'a8f#2gip',
+    description: 'Senha do administrador para cadastrar usuários com função de admin ou staff',
+  })
+  @IsString()
+  @IsOptional()
+  adminPassword?: string;
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
